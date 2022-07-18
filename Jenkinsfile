@@ -5,7 +5,7 @@ pipeline {
 
            
 
-        stage('Restore packages'){
+        stage('Packages'){
             steps{
                 bat "dotnet restore pipelines-dotnet-core.csproj"
      }
@@ -23,18 +23,12 @@ pipeline {
     }
  }
 
-        stage('Test: Unit Test'){
+        stage('Test'){
             steps {
                 bat "dotnet test pipelines-dotnet-core.csproj"
      }
   }
        
-         stage('Test: Integration Test'){
-            steps {
-                bat "dotnet test pipelines-dotnet-core.csproj"
-      }
-   }
-
         stage('Publish'){
             steps{
                 bat "dotnet publish pipelines-dotnet-core.csproj"
