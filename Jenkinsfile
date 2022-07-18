@@ -2,15 +2,6 @@ pipeline {
     
     agent any
     
-    environment {
-        dotnet ='C:\\Program Files (x86)\\dotnet\\'
-        }
-        
-    triggers {
-        pollSCM 'H * * * *'
-    }
- }
-
 stage('Restore packages'){
    steps{
       bat "dotnet restore pipelines-dotnet-core.csproj"
@@ -54,3 +45,4 @@ post{
     subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
     }
   }
+}
