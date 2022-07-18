@@ -6,16 +6,16 @@ pipeline {
 
         stage('Build'){
             steps {
-                bat "dotnet clean"
+                sh "dotnet clean"
 
-                bat "dotnet compile"
+                sh "dotnet compile"
             }
         }
 
         stage('Test'){
             steps {
                 
-                bat "dotnet test"
+                sh "dotnet test"
             }
 
             post {
@@ -28,7 +28,7 @@ pipeline {
         stage('Package'){
             steps {
                 
-                bat "dotnet package"
+                sh "dotnet package"
             }
             post {
                 success {
