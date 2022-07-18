@@ -39,7 +39,6 @@ pipeline {
             steps{
                 bat "dotnet publish pipelines-dotnet-core.csproj"
      }
-}
 
             post{
                 always{
@@ -48,5 +47,6 @@ pipeline {
                     subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
     }
   }
+}
 }
 }
