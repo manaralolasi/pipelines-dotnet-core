@@ -25,13 +25,13 @@ pipeline {
 
         stage('Test'){
             steps {
-                bat "dotnet test pipelines-dotnet-core.csproj"
+                bat "dotnet test"
      }
   }
        
         stage('Publish'){
             steps{
-                bat "dotnet publish pipelines-dotnet-core.csproj"
+                bat "dotnet publish"
      }
 
             post{
