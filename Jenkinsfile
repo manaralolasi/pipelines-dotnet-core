@@ -5,21 +5,18 @@ pipeline {
 
            
 
-        stage('Packages'){
+        stage('Package'){
             steps{
-                bat "dotnet restore pipelines-dotnet-core.csproj"
+                bat "dotnet package"
      }
   }
 
-        stage('Clean'){
-            steps{
-                bat "dotnet clean pipelines-dotnet-core.csproj"
-     }
-   }
 
         stage('Build'){
             steps{
                 bat "dotnet build pipelines-dotnet-core.csproj --configuration Release"
+                bat "dotnet clean"
+                bat "dotnet compile"
     }
  }
 
