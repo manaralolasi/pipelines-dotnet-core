@@ -1,51 +1,40 @@
-pipeline {
-    
-    agent any
-    
-    environment {
-        dotnet ='C:\\Program Files (x86)\\dotnet\\'
-        }
-        
-    triggers {
-        pollSCM 'H * * * *'
-    }
-    stages {
-
-           
-
-        stage('Package'){
-            steps{
-                bat "dotnet package"
-     }
-  }
-
-
-        stage('Build'){
-            steps{
-                bat "dotnet build pipelines-dotnet-core.csproj --configuration Release"
-                bat "dotnet clean"
-                bat "dotnet compile"
-    }
- }
-
-        stage('Test'){
+pipeline { 
+  
+  agent any
+  
+    stages { 
+  
+      stage('restore') {
             steps {
-                bat "dotnet test"
-     }
-  }
-       
-        stage('Publish'){
-            steps{
-                bat "dotnet publish"
-     }
-
-            post{
-                always{
-                    emailext body: "${currentBuild.currentResult}: Job   ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-                    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-                    subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
-    }
-  }
-}
-}
-}
+             sh "dotnet restore"
+            }
+        }
+      
+      
+        stage('Build') {
+            steps {
+             sh "dotnet build"
+            }
+        }
+ 
+        stage('Test'){ 
+            steps { 
+ 
+                sh "dotnet test" 
+            } 
+ 
+        } 
+ 
+        stage('Package'){ 
+            steps { 
+ 
+                sh "dotnet publish" 
+            } 
+            post { 
+                success { 
+                    archiveArtifacts artifacts: '**/bin/Debug/net6.0/**.dll', followSymlinks: false 
+                } 
+            } 
+        } 
+ 
+    } 
