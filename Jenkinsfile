@@ -12,7 +12,7 @@ pipeline {
         AWS_EB_ENVIRONMENT = "Dotnetapplication-env"
       
         SONAR_IP = "54.226.50.200"
-        SONAR_TOKEN = "sqp_1e774b5268619f7b4755d7c40245d9a236217292"
+        SONAR_TOKEN = "sqp_ae324bf39dc9bf886ab4ce05a394d6a1bd54fc37"
 
     }
 
